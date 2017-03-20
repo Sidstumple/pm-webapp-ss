@@ -1,8 +1,4 @@
 
 .env
 
-node_modules/.bin/latest-version
-
-node_modules/.bin/mime
-
-node_modules/.bin/mkdirp
+node_modules/
