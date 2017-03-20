@@ -1,0 +1,9 @@
+<% include partials/head %>
+<h1>Search</h1>
+je zocht op <%= query %>
+
+<% data.artObjects.forEach(function(object){ %>
+  <%= object.title %>
+<% }); %>
+
+<% include partials/foot %>
