@@ -1,9 +1,22 @@
 <% include partials/head %>
-<h1>Search</h1>
-je zocht op <%= query %>
 
-<% data.artObjects.forEach(function(object){ %>
-  <%= object.title %>
-<% }); %>
+
+<div class="searchField">
+   <h1>Bekijk alle kunstwerken van het Rijksmuseum!</h1>
+    <p>Voer een zoekterm in & druk op enter:</p>
+    <form class="column" id="getUserQuery">
+        <input name="query" type="text" id="user-input-field" autofocus required >
+    </form>
+</div>
+
+<article>
+  <% data.artObjects.map(function(obj) { %>
+    <div class="media-item" id=<%= obj.objectNumber%>>
+      <h1> <a href="/detail/<%=obj.objectNumber %>"><%= obj.principalOrFirstMaker %></a> </h1>
+      <p><%= obj.title %></p>
+      <img src="<%=obj.webImage.url %>" alt="<%= obj.title %>">
+    </div>
+  <% }); %>
+</article>
 
 <% include partials/foot %>

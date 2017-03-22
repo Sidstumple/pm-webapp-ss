@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Sidstumple/pm-webapp-ss#readme",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "concat-stream": "^1.6.0",
     "dotenv": "^4.0.0",
     "ejs": "^2.5.6",
