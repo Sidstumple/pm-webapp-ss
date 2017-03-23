@@ -35,9 +35,9 @@ res.render('search', {data: data, query: query});
 To handle API requests I use [Request](https://www.npmjs.com/package/request).
 ```
 request(url, function(error, response, body){
-        var data = JSON.parse(body); 
-        res.render('search', {data: data, query: query});
-      })
+  var data = JSON.parse(body); 
+  res.render('search', {data: data, query: query});
+})
 ```
 
 The search input has an html attribute `name="q"` (q is for query), when the search page is rendered it requests that the value that is in the input field with `name="q"` is put in the parameters of the url. I can use this variable now to add the user query to the API url and request the according data.
