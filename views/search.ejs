@@ -1,6 +1,5 @@
 <% include partials/head %>
 
-
 <div class="searchField">
    <h1>Bekijk alle kunstwerken van het Rijksmuseum!</h1>
     <p>Voer een zoekterm in & druk op enter:</p>
@@ -9,14 +8,18 @@
     </form>
 </div>
 
-<article>
+<article id="add-content">
   <% data.artObjects.map(function(obj) { %>
-    <div class="media-item" id=<%= obj.objectNumber%>>
-      <h1> <a href="/detail/<%=obj.objectNumber %>"><%= obj.principalOrFirstMaker %></a> </h1>
-      <p><%= obj.title %></p>
-      <img src="<%=obj.webImage.url %>" alt="<%= obj.title %>">
-    </div>
-  <% }); %>
+    <% if (obj.webImage) {%>
+      <div class="media-item" id=<%= obj.objectNumber%>>
+        <h1> <a href="/detail/<%=obj.objectNumber %>"><%= obj.principalOrFirstMaker %></a> </h1>
+        <p><%= obj.title %></p>
+
+        <img src="<%= obj.webImage.url %>" alt="<%= obj.title %>">
+
+      </div>
+    <% } %>
+  <%});%>
 </article>
 
 <% include partials/foot %>

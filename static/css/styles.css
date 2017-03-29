@@ -300,3 +300,23 @@ img.error {
 .title {
   font-weight: bold;
 }
+
+.animate {
+  animation: swoosh 1s ease-in-out;
+  transform: none !important;
+}
+
+@keyframes swoosh {
+  0% {
+   transform: translateX(-100vw);
+ }
+ 60% {
+   transform: translateX(-3vw);
+ }
+ 80% {
+    transform: translateX(-1vw);
+ }
+ 100% {
+   transform: none;
+ }
+}

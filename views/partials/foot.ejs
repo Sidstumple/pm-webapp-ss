@@ -1,5 +1,18 @@
 
-<script src="http://localhost:3000/js/index.js"></script>
+</main>
+<script>
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker
+    .register('/static/sw.js')
+    .then(function(registration){
+      console.log("ServiceWorker Registrated");
+    })
+    .catch(function(err){
+      console.log("Failed to register", err)
+    })
+  }
+</script>
+<script src="static/js/bundle.js"></script>
 
 </body>
 </html>

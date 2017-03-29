@@ -1,8 +1,8 @@
 <% include partials/head %>
 <article>
   <% var obj = detail.artObject; %>
-    <div class="detail-item" id="<%=obj.objectNumber%>"">
-      <img src="<%=obj.webImage.url %>" alt="<%=obj.title %>">
+    <div class="detail-item">
+      <img src="<%=obj.webImage.url %>" alt="<%= obj.title %>">
       <div class="container">
         <h1><%= obj.principalOrFirstMaker %></h1>
         <p class="title"><%= obj.title %></p>
