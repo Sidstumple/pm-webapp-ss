@@ -8,8 +8,13 @@
   "background_color": "#fff",
   "icons": [
     {
-      "src": "static/img/rijks.jpg",
-      "sizes": "180x160",
+      "src": "/static/img/rijks.jpg",
+      "sizes": "160x180",
+      "type": "image/jpg"
+    },
+    {
+      "src": "/static/img/rijks.png",
+      "sizes": "144x144",
       "type": "image/png"
     }
   ]

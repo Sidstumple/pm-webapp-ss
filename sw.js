@@ -1,7 +1,7 @@
-var cacheName = 'v1';
+var cacheName = 'v2';
 var cacheFiles = [
   '/static/css/styles.css',
-  '/search?q=rembrandt'
+  '/static/js/bundle.js',
 ]
 
 self.addEventListener('install', function (event) {
@@ -19,7 +19,6 @@ self.addEventListener('install', function (event) {
 self.addEventListener('activate', function (event) {
     console.log('[serviceWorker] activated');
     event.waitUntil(
-
       caches.keys().then(function(cacheNames){
         return Promise.all(cacheNames.map(function(thisCacheName) {
           if(thisCacheName !== cacheName) {

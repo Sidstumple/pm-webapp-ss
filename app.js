@@ -2,10 +2,10 @@ var express = require('express');
 var request = require('request');
 var concat = require('concat-stream');
 var https = require('https');
+var app = express();
 
 require('dotenv').config(); //makes apikey invisible
 
-var app = express();
 
 app.use(express.static('./'))
 app.set('view engine', 'ejs'); //render all html via ejs

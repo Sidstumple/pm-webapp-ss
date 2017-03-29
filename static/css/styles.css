@@ -37,7 +37,7 @@ p {
 
 /*Navigation*/
 nav {
-top: 0;
+  top: 0;
   background: black;
   display: flex;
   flex-direction: row;
@@ -79,8 +79,10 @@ main {
   display: flex;
   flex-direction: column;
   max-width: 100vw;
+  height: 100vw;
+  justify-content: center;
+  transition: 1s ease-out;
 }
-
 
 /*section startscreen*/
 .startScreen {
@@ -90,7 +92,6 @@ main {
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  background: url(../../img/molen.jpg) center;
   background-size: cover;
 }
 
@@ -103,7 +104,7 @@ main {
   text-shadow: 0.06em 0.06em 0 #333;
 }
 
-.searchField {
+.search-field {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -112,8 +113,9 @@ main {
   background: white;
   margin-bottom: 1em;
   margin-top: 4em;
+  min-height: 20em;
+  min-height: max-content;
   height: auto;
-  height: max-content;
   padding: 1em;
   box-sizing: border-box;
 }
@@ -126,6 +128,9 @@ main {
   align-content: space-around;
   align-items: flex-start;
   flex-basis: 22em;
+  min-height: max-content;
+  height: 100%;
+  height: max-content;
   margin: 0.5em;
   padding: 1em;
   background: white;
@@ -152,6 +157,9 @@ main {
   align-content: space-around;
   justify-content: space-around;
   align-items: flex-start;
+  min-height: max-content;
+  height: 100%;
+  height: max-content;
   width: 80vw;
   padding: 1.5em;
   background: white;

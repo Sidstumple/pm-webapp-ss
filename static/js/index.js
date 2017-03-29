@@ -1,29 +1,30 @@
+//modules
 var https = require('https');
 var concat = require('concat-stream');
-
-require('dotenv').config();
 
 // for the API url:
 var startUrl = 'https://www.rijksmuseum.nl/api/nl/collection';
 var apikey = 'epHseGj4';
 var input = document.getElementById('user-input-field');
-var query = input.value;
-var url = `${startUrl}?key=${apikey}&ps=6&format=json&q=${query}`;
 var article = document.getElementById('add-content');
+var zoekOpdracht = document.getElementById('zoek-opdracht');
 
 input.addEventListener('input', function(){
-  search();
+  search(event.target.value);
 });
 
-function search(){
-  // load(callback, url); //calls function load, gives the query and calls function callback
-  console.log(query);
+function search(event){
+  var query = event;
+  zoekOpdracht.innerHTML = '';
+  //replace spaces with %20
+  query = query.replace(/\s/g, '%20');
+  var url = `${startUrl}?key=${apikey}&ps=6&format=json&q=${query}`;
+  load(callback, url); //calls function load, gives the query and calls function callback
   var html = '';
   function callback(data) {
     data.artObjects.map(function(obj){ //use the variable data to map (loop through and apply a function) the array artObjects, this is the array that contains all the properties of the API I want to use.
-      console.log(obj);
       if (obj.webImage !== null) { //check if an image is available when webImage is not equal to null it contains a url to the image
-        html =
+        html +=
           `<div class="media-item" id=${obj.objectNumber}>
             <h1> <a href="/detail/${obj.objectNumber}">${obj.principalOrFirstMaker}</a> </h1>
             <p>${obj.title}</p>
@@ -36,7 +37,6 @@ function search(){
  }
 
  function load(callback, url) {
-   console.log(url);
    https.get(url, function(res) {
      res.pipe(concat(onfinish));
    });

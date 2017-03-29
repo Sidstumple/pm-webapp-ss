@@ -110,7 +110,7 @@ exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"buffer":23}],2:[function(require,module,exports){
+},{"buffer":21}],2:[function(require,module,exports){
 (function (Buffer){
 var Writable = require('readable-stream').Writable
 var inherits = require('inherits')
@@ -257,7 +257,7 @@ function u8Concat (parts) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":23,"inherits":5,"readable-stream":14,"typedarray":16}],3:[function(require,module,exports){
+},{"buffer":21,"inherits":4,"readable-stream":13,"typedarray":15}],3:[function(require,module,exports){
 (function (Buffer){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -368,85 +368,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":30}],4:[function(require,module,exports){
-(function (process){
-'use strict'
-
-var fs = require('fs')
-
-/*
- * Parses a string or buffer into an object
- * @param {String|Buffer} src - source to be parsed
- * @returns {Object}
-*/
-function parse (src) {
-  var obj = {}
-
-  // convert Buffers before splitting into lines and processing
-  src.toString().split('\n').forEach(function (line) {
-    // matching "KEY' and 'VAL' in 'KEY=VAL'
-    var keyValueArr = line.match(/^\s*([\w\.\-]+)\s*=\s*(.*)?\s*$/)
-    // matched?
-    if (keyValueArr != null) {
-      var key = keyValueArr[1]
-
-      // default undefined or missing values to empty string
-      var value = keyValueArr[2] ? keyValueArr[2] : ''
-
-      // expand newlines in quoted values
-      var len = value ? value.length : 0
-      if (len > 0 && value.charAt(0) === '"' && value.charAt(len - 1) === '"') {
-        value = value.replace(/\\n/gm, '\n')
-      }
-
-      // remove any surrounding quotes and extra spaces
-      value = value.replace(/(^['"]|['"]$)/g, '').trim()
-
-      obj[key] = value
-    }
-  })
-
-  return obj
-}
-
-/*
- * Main entry point into dotenv. Allows configuration before loading .env
- * @param {Object} options - valid options: path ('.env'), encoding ('utf8')
- * @returns {Boolean}
-*/
-function config (options) {
-  var path = '.env'
-  var encoding = 'utf8'
-
-  if (options) {
-    if (options.path) {
-      path = options.path
-    }
-    if (options.encoding) {
-      encoding = options.encoding
-    }
-  }
-
-  try {
-    // specifying an encoding returns a string instead of a buffer
-    var parsedObj = parse(fs.readFileSync(path, { encoding: encoding }))
-
-    Object.keys(parsedObj).forEach(function (key) {
-      process.env[key] = process.env[key] || parsedObj[key]
-    })
-
-    return { parsed: parsedObj }
-  } catch (e) {
-    return { error: e }
-  }
-}
-
-module.exports.config = config
-module.exports.load = config
-module.exports.parse = parse
-
-}).call(this,require('_process'))
-},{"_process":33,"fs":19}],5:[function(require,module,exports){
+},{"../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":28}],4:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -471,14 +393,14 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -525,7 +447,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 }
 
 }).call(this,require('_process'))
-},{"_process":33}],8:[function(require,module,exports){
+},{"_process":31}],7:[function(require,module,exports){
 // a duplex stream is just a stream that is both readable and writable.
 // Since JS doesn't have multiple prototypal inheritance, this class
 // prototypally inherits from Readable, and then parasitically from
@@ -601,7 +523,7 @@ function forEach(xs, f) {
     f(xs[i], i);
   }
 }
-},{"./_stream_readable":10,"./_stream_writable":12,"core-util-is":3,"inherits":5,"process-nextick-args":7}],9:[function(require,module,exports){
+},{"./_stream_readable":9,"./_stream_writable":11,"core-util-is":3,"inherits":4,"process-nextick-args":6}],8:[function(require,module,exports){
 // a passthrough stream.
 // basically just the most minimal sort of Transform stream.
 // Every written chunk gets output as-is.
@@ -628,7 +550,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":11,"core-util-is":3,"inherits":5}],10:[function(require,module,exports){
+},{"./_stream_transform":10,"core-util-is":3,"inherits":4}],9:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -1572,7 +1494,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":8,"./internal/streams/BufferList":13,"_process":33,"buffer":23,"buffer-shims":1,"core-util-is":3,"events":26,"inherits":5,"isarray":6,"process-nextick-args":7,"string_decoder/":15,"util":21}],11:[function(require,module,exports){
+},{"./_stream_duplex":7,"./internal/streams/BufferList":12,"_process":31,"buffer":21,"buffer-shims":1,"core-util-is":3,"events":24,"inherits":4,"isarray":5,"process-nextick-args":6,"string_decoder/":14,"util":19}],10:[function(require,module,exports){
 // a transform stream is a readable/writable stream where you do
 // something with the data.  Sometimes it's called a "filter",
 // but that's not a great name for it, since that implies a thing where
@@ -1755,7 +1677,7 @@ function done(stream, er, data) {
 
   return stream.push(null);
 }
-},{"./_stream_duplex":8,"core-util-is":3,"inherits":5}],12:[function(require,module,exports){
+},{"./_stream_duplex":7,"core-util-is":3,"inherits":4}],11:[function(require,module,exports){
 (function (process){
 // A bit simpler than readable streams.
 // Implement an async ._write(chunk, encoding, cb), and it'll handle all
@@ -2309,7 +2231,7 @@ function CorkedRequest(state) {
   };
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":8,"_process":33,"buffer":23,"buffer-shims":1,"core-util-is":3,"events":26,"inherits":5,"process-nextick-args":7,"util-deprecate":17}],13:[function(require,module,exports){
+},{"./_stream_duplex":7,"_process":31,"buffer":21,"buffer-shims":1,"core-util-is":3,"events":24,"inherits":4,"process-nextick-args":6,"util-deprecate":16}],12:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('buffer').Buffer;
@@ -2374,7 +2296,7 @@ BufferList.prototype.concat = function (n) {
   }
   return ret;
 };
-},{"buffer":23,"buffer-shims":1}],14:[function(require,module,exports){
+},{"buffer":21,"buffer-shims":1}],13:[function(require,module,exports){
 (function (process){
 var Stream = (function (){
   try {
@@ -2394,7 +2316,7 @@ if (!process.browser && process.env.READABLE_STREAM === 'disable' && Stream) {
 }
 
 }).call(this,require('_process'))
-},{"./lib/_stream_duplex.js":8,"./lib/_stream_passthrough.js":9,"./lib/_stream_readable.js":10,"./lib/_stream_transform.js":11,"./lib/_stream_writable.js":12,"_process":33}],15:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":7,"./lib/_stream_passthrough.js":8,"./lib/_stream_readable.js":9,"./lib/_stream_transform.js":10,"./lib/_stream_writable.js":11,"_process":31}],14:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -2617,7 +2539,7 @@ function base64DetectIncompleteChar(buffer) {
   this.charLength = this.charReceived ? 3 : 0;
 }
 
-},{"buffer":23}],16:[function(require,module,exports){
+},{"buffer":21}],15:[function(require,module,exports){
 var undefined = (void 0); // Paranoia
 
 // Beyond this value, index getters/setters (i.e. array[0], array[1]) are so slow to
@@ -3249,7 +3171,7 @@ function packF32(v) { return packIEEE754(v, 8, 23); }
 
 }());
 
-},{}],17:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 (function (global){
 
 /**
@@ -3320,34 +3242,34 @@ function config (name) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],18:[function(require,module,exports){
-// Use a Node.js core library
+},{}],17:[function(require,module,exports){
+//modules
 var https = require('https');
 var concat = require('concat-stream');
-
-require('dotenv').config();
 
 // for the API url:
 var startUrl = 'https://www.rijksmuseum.nl/api/nl/collection';
 var apikey = 'epHseGj4';
 var input = document.getElementById('user-input-field');
-var query = document.getElementById('user-input-field').value;
-var url = `${startUrl}?key=${apikey}&ps=6&format=json&q=${query}`;
-var article = document.getElementById('add-content')
+var article = document.getElementById('add-content');
+var zoekOpdracht = document.getElementById('zoek-opdracht');
 
 input.addEventListener('input', function(){
-  search();
+  search(event.target.value);
 });
 
-function search(){
-  // load(callback, url); //calls function load, gives the query and calls function callback
-  console.log(query);
+function search(event){
+  var query = event;
+  zoekOpdracht.innerHTML = '';
+  //replace spaces with %20
+  query = query.replace(/\s/g, '%20');
+  var url = `${startUrl}?key=${apikey}&ps=6&format=json&q=${query}`;
+  load(callback, url); //calls function load, gives the query and calls function callback
   var html = '';
-
   function callback(data) {
     data.artObjects.map(function(obj){ //use the variable data to map (loop through and apply a function) the array artObjects, this is the array that contains all the properties of the API I want to use.
       if (obj.webImage !== null) { //check if an image is available when webImage is not equal to null it contains a url to the image
-        html =
+        html +=
           `<div class="media-item" id=${obj.objectNumber}>
             <h1> <a href="/detail/${obj.objectNumber}">${obj.principalOrFirstMaker}</a> </h1>
             <p>${obj.title}</p>
@@ -3360,7 +3282,6 @@ function search(){
  }
 
  function load(callback, url) {
-   console.log(url);
    https.get(url, function(res) {
      res.pipe(concat(onfinish));
    });
@@ -3370,9 +3291,7 @@ function search(){
    }
  }
 
-},{"concat-stream":2,"dotenv":4,"https":27}],19:[function(require,module,exports){
-
-},{}],20:[function(require,module,exports){
+},{"concat-stream":2,"https":25}],18:[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength
@@ -3488,11 +3407,11 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],21:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"dup":19}],22:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
+
+},{}],20:[function(require,module,exports){
 arguments[4][1][0].apply(exports,arguments)
-},{"buffer":23,"dup":1}],23:[function(require,module,exports){
+},{"buffer":21,"dup":1}],21:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -5200,7 +5119,7 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":20,"ieee754":28}],24:[function(require,module,exports){
+},{"base64-js":18,"ieee754":26}],22:[function(require,module,exports){
 module.exports = {
   "100": "Continue",
   "101": "Switching Protocols",
@@ -5266,7 +5185,7 @@ module.exports = {
   "511": "Network Authentication Required"
 }
 
-},{}],25:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 (function (Buffer){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -5377,7 +5296,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":30}],26:[function(require,module,exports){
+},{"../../is-buffer/index.js":28}],24:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -5681,7 +5600,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],27:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 var http = require('http');
 
 var https = module.exports;
@@ -5697,7 +5616,7 @@ https.request = function (params, cb) {
     return http.request.call(this, params, cb);
 }
 
-},{"http":45}],28:[function(require,module,exports){
+},{"http":43}],26:[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = nBytes * 8 - mLen - 1
@@ -5783,9 +5702,9 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],29:[function(require,module,exports){
-arguments[4][5][0].apply(exports,arguments)
-},{"dup":5}],30:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
+arguments[4][4][0].apply(exports,arguments)
+},{"dup":4}],28:[function(require,module,exports){
 /*!
  * Determine if an object is a Buffer
  *
@@ -5808,11 +5727,11 @@ function isSlowBuffer (obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
-},{}],31:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
+arguments[4][5][0].apply(exports,arguments)
+},{"dup":5}],30:[function(require,module,exports){
 arguments[4][6][0].apply(exports,arguments)
-},{"dup":6}],32:[function(require,module,exports){
-arguments[4][7][0].apply(exports,arguments)
-},{"_process":33,"dup":7}],33:[function(require,module,exports){
+},{"_process":31,"dup":6}],31:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -5994,7 +5913,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],34:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
@@ -6531,7 +6450,7 @@ process.umask = function() { return 0; };
 }(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],35:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -6617,7 +6536,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],36:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -6704,27 +6623,27 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],37:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":35,"./encode":36}],38:[function(require,module,exports){
+},{"./decode":33,"./encode":34}],36:[function(require,module,exports){
+arguments[4][7][0].apply(exports,arguments)
+},{"./_stream_readable":38,"./_stream_writable":40,"core-util-is":23,"dup":7,"inherits":27,"process-nextick-args":30}],37:[function(require,module,exports){
 arguments[4][8][0].apply(exports,arguments)
-},{"./_stream_readable":40,"./_stream_writable":42,"core-util-is":25,"dup":8,"inherits":29,"process-nextick-args":32}],39:[function(require,module,exports){
+},{"./_stream_transform":39,"core-util-is":23,"dup":8,"inherits":27}],38:[function(require,module,exports){
 arguments[4][9][0].apply(exports,arguments)
-},{"./_stream_transform":41,"core-util-is":25,"dup":9,"inherits":29}],40:[function(require,module,exports){
+},{"./_stream_duplex":36,"./internal/streams/BufferList":41,"_process":31,"buffer":21,"buffer-shims":20,"core-util-is":23,"dup":9,"events":24,"inherits":27,"isarray":29,"process-nextick-args":30,"string_decoder/":47,"util":19}],39:[function(require,module,exports){
 arguments[4][10][0].apply(exports,arguments)
-},{"./_stream_duplex":38,"./internal/streams/BufferList":43,"_process":33,"buffer":23,"buffer-shims":22,"core-util-is":25,"dup":10,"events":26,"inherits":29,"isarray":31,"process-nextick-args":32,"string_decoder/":49,"util":21}],41:[function(require,module,exports){
+},{"./_stream_duplex":36,"core-util-is":23,"dup":10,"inherits":27}],40:[function(require,module,exports){
 arguments[4][11][0].apply(exports,arguments)
-},{"./_stream_duplex":38,"core-util-is":25,"dup":11,"inherits":29}],42:[function(require,module,exports){
+},{"./_stream_duplex":36,"_process":31,"buffer":21,"buffer-shims":20,"core-util-is":23,"dup":11,"events":24,"inherits":27,"process-nextick-args":30,"util-deprecate":51}],41:[function(require,module,exports){
 arguments[4][12][0].apply(exports,arguments)
-},{"./_stream_duplex":38,"_process":33,"buffer":23,"buffer-shims":22,"core-util-is":25,"dup":12,"events":26,"inherits":29,"process-nextick-args":32,"util-deprecate":53}],43:[function(require,module,exports){
+},{"buffer":21,"buffer-shims":20,"dup":12}],42:[function(require,module,exports){
 arguments[4][13][0].apply(exports,arguments)
-},{"buffer":23,"buffer-shims":22,"dup":13}],44:[function(require,module,exports){
-arguments[4][14][0].apply(exports,arguments)
-},{"./lib/_stream_duplex.js":38,"./lib/_stream_passthrough.js":39,"./lib/_stream_readable.js":40,"./lib/_stream_transform.js":41,"./lib/_stream_writable.js":42,"_process":33,"dup":14}],45:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":36,"./lib/_stream_passthrough.js":37,"./lib/_stream_readable.js":38,"./lib/_stream_transform.js":39,"./lib/_stream_writable.js":40,"_process":31,"dup":13}],43:[function(require,module,exports){
 (function (global){
 var ClientRequest = require('./lib/request')
 var extend = require('xtend')
@@ -6806,7 +6725,7 @@ http.METHODS = [
 	'UNSUBSCRIBE'
 ]
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./lib/request":47,"builtin-status-codes":24,"url":51,"xtend":54}],46:[function(require,module,exports){
+},{"./lib/request":45,"builtin-status-codes":22,"url":49,"xtend":52}],44:[function(require,module,exports){
 (function (global){
 exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
 
@@ -6879,7 +6798,7 @@ function isFunction (value) {
 xhr = null // Help gc
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],47:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 (function (process,global,Buffer){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -7177,7 +7096,7 @@ var unsafeHeaders = [
 ]
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":46,"./response":48,"_process":33,"buffer":23,"inherits":29,"readable-stream":44,"to-arraybuffer":50}],48:[function(require,module,exports){
+},{"./capability":44,"./response":46,"_process":31,"buffer":21,"inherits":27,"readable-stream":42,"to-arraybuffer":48}],46:[function(require,module,exports){
 (function (process,global,Buffer){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -7363,9 +7282,9 @@ IncomingMessage.prototype._onXHRProgress = function () {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":46,"_process":33,"buffer":23,"inherits":29,"readable-stream":44}],49:[function(require,module,exports){
-arguments[4][15][0].apply(exports,arguments)
-},{"buffer":23,"dup":15}],50:[function(require,module,exports){
+},{"./capability":44,"_process":31,"buffer":21,"inherits":27,"readable-stream":42}],47:[function(require,module,exports){
+arguments[4][14][0].apply(exports,arguments)
+},{"buffer":21,"dup":14}],48:[function(require,module,exports){
 var Buffer = require('buffer').Buffer
 
 module.exports = function (buf) {
@@ -7394,7 +7313,7 @@ module.exports = function (buf) {
 	}
 }
 
-},{"buffer":23}],51:[function(require,module,exports){
+},{"buffer":21}],49:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -8128,7 +8047,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":52,"punycode":34,"querystring":37}],52:[function(require,module,exports){
+},{"./util":50,"punycode":32,"querystring":35}],50:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -8146,9 +8065,9 @@ module.exports = {
   }
 };
 
-},{}],53:[function(require,module,exports){
-arguments[4][17][0].apply(exports,arguments)
-},{"dup":17}],54:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
+arguments[4][16][0].apply(exports,arguments)
+},{"dup":16}],52:[function(require,module,exports){
 module.exports = extend
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -8169,4 +8088,4 @@ function extend() {
     return target
 }
 
-},{}]},{},[18]);
+},{}]},{},[17]);

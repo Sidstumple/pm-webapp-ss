@@ -1,10 +1,12 @@
 <% include partials/head %>
 
-<div class="searchField">
+<div class="search-field" id="search-field">
    <h1>Bekijk alle kunstwerken van het Rijksmuseum!</h1>
-    <p>Voer een zoekterm in & druk op enter:</p>
+   <p>Voer een zoekterm in
+    <noscript>& druk op enter:</noscript></p>
     <form class="column" id="getUserQuery">
         <input name="q" type="text" id="user-input-field" autofocus required >
+        <p id='zoek-opdracht'> Je zocht op: <strong><%= query%></strong></p>
     </form>
 </div>
 
@@ -14,12 +16,10 @@
       <div class="media-item" id=<%= obj.objectNumber%>>
         <h1> <a href="/detail/<%=obj.objectNumber %>"><%= obj.principalOrFirstMaker %></a> </h1>
         <p><%= obj.title %></p>
-
         <img src="<%= obj.webImage.url %>" alt="<%= obj.title %>">
-
       </div>
     <% } %>
   <%});%>
 </article>
-
+<script src="/static/js/bundle.js"></script>
 <% include partials/foot %>
