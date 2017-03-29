@@ -1,7 +1,7 @@
-var cacheName = 'v2';
+var cacheName = 'v1.3.15';
 var cacheFiles = [
   '/static/css/styles.css',
-  '/static/js/bundle.js',
+  '/offline/'
 ]
 
 self.addEventListener('install', function (event) {
@@ -31,29 +31,46 @@ self.addEventListener('activate', function (event) {
 })
 
 self.addEventListener('fetch', function (event) {
-    console.log('[serviceWorker] fetching', event.request.url);
-    event.respondWith(
+  console.log('[serviceWorker] fetching', event.request.url);
+  var request = event.request;
+  if (request.mode === 'navigate') {
+        event.respondWith(
+            fetch(request)
+                .then(response => cachePage(request, response))
+                .catch(err => getCachedPage(request))
+                .catch(err => fetchCoreFile('/offline/'))
+        );
+    } else {
+        event.respondWith(
+            fetch(request)
+                .catch(err => fetchCoreFile(request.url))
+                .catch(err => fetchCoreFile('/offline/'))
+        );
+    }
+})
 
-      caches.match(event.request).then(function(response){
-        if(response){
-          console.log("[serviceWorker] Found in cache", event.request.url);
-          return response;
-        }
-        var requestClone = event.request.clone();
-        fetch(requestClone).then(function(response){
-          if(!response){
-            console.log("[serviceWorker] No response from fetch");
-            return response;
-          }
-          var responseClone = response.clone();
-          caches.open(cacheName).then(function (cache) {
-            console.log("[serviceWorker] New Data New", event.request.url);
-            cache.put(event.request, responseClone);
-            return response;
-          });
-      })
-      .catch(function(err) {
-        console.log('[serviceWorker] error fetching and cashing new request');
-      })
-    }))
+
+function fetchCoreFile(url) {
+  return caches.open(cacheName)
+  .then(function (cache) {
+    return cache.match(url);
   })
+  .then(function (response) {
+    return response ? response : Promise.reject();
+  });
+}
+function getCachedPage(request) {
+  return caches.open(cacheName).then(function (cache) {
+    return cache.match(request);
+  }).then(function (response) {
+    return response ? response : Promise.reject();
+  });
+}
+
+function cachePage(request, response) {
+  var clonedResponse = response.clone();
+  caches.open(cacheName).then(function (cache) {
+    return cache.put(request, clonedResponse);
+  });
+  return response;
+}

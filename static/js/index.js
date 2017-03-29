@@ -13,12 +13,17 @@ input.addEventListener('input', function(){
   search(event.target.value);
 });
 
+input.addEventListener('submit', function() {
+  event.preventDefault();
+  console.log('submitted');
+})
+
 function search(event){
   var query = event;
   zoekOpdracht.innerHTML = '';
   //replace spaces with %20
   query = query.replace(/\s/g, '%20');
-  var url = `${startUrl}?key=${apikey}&ps=6&format=json&q=${query}`;
+  var url = `${startUrl}?key=${apikey}&ps=4&format=json&q=${query}`;
   load(callback, url); //calls function load, gives the query and calls function callback
   var html = '';
   function callback(data) {

@@ -6,7 +6,6 @@ var app = express();
 
 require('dotenv').config(); //makes apikey invisible
 
-
 app.use(express.static('./'))
 app.set('view engine', 'ejs'); //render all html via ejs
 
@@ -20,7 +19,7 @@ app.get('/', function (req, res) {
 
 app.get('/search/:query?', function (req, res) {
   var query = req.param('q');
-  var url = `${startUrl}?key=${apikey}&ps=6&format=json&q=${query}`;
+  var url = `${startUrl}?key=${apikey}&ps=4&format=json&q=${query}`;
   load(callback, url); //calls function load, gives the query and calls function callback
   function callback(data) {
     res.render('search', {data: data, query: query}); // renders search with an object, these properties are now accessible in index.ejs
