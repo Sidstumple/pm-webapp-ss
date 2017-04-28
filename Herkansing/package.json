@@ -4,7 +4,7 @@
   "description": "A server-side version of my webapp from scratch",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
