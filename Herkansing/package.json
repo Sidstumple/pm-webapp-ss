@@ -6,10 +6,6 @@
   "scripts": {
     "start": "node app.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Sidstumple/pm-webapp-ss.git"
-  },
   "author": "Cyd Stumpel",
   "license": "MIT",
   "engines": {
